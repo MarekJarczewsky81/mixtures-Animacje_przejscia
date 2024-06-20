@@ -1,12 +1,16 @@
 <template>
-  <div class="flask" :style="flaskStyle" ref="flask">
+  <div
+    class="flask"
+    :class="{ 'animate__animated animate__shakeY': isAnimated }"
+    :style="flaskStyle"
+    @animationend="isAnimated = false">
 
     <!-- decrement btn -->
     <button-item
       v-if="buttonsVisible"
       class="flask__btn flask__btn--left"
       icon="pi pi-arrow-down"
-      @click="handleDecrement()"
+      @click="handleDecrement"
     />
     <div
         :class="fillClasses"
@@ -20,7 +24,7 @@
       class="flask__btn flask__btn--right"
       icon="pi pi-arrow-up"
       :movement="-0.5"
-      @click="handleIncrement()"
+      @click="handleIncrement"
     />
   </div>
 </template>
@@ -53,6 +57,11 @@ export default {
       default: true
     }
   },
+  data() {
+    return {
+      isAnimated: false
+    }
+  },
   computed: {
     flaskStyle () {
       return {
@@ -79,18 +88,15 @@ export default {
     }
   },
   methods: {
-    addAnimationClass() {
-      this.$refs.flask.classList.add('animate__animated', 'animate__shakeY');
-      setTimeout(() => {
-        this.$refs.flask.classList.remove('animate__animated', 'animate__shakeY');
-      }, 1000); // Czas trwania animacji shakeY to 1s
+    triggerAnimation () {
+      this.isAnimated = true;
     },
     handleIncrement () {
-      this.addAnimationClass();
+      this.triggerAnimation();
       this.$emit('increment');
     },
     handleDecrement () {
-      this.addAnimationClass();
+      this.triggerAnimation();
       this.$emit('decrement');
     }
   },
@@ -99,29 +105,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.fadeIn {
-  animation-name: fadeIn;
-  animation-iteration-count: 1;
-  animation-duration: .3s;
-}
-
-@keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1 }
-}
-
-.zoomIn {
-  animation-name: zoomIn;
-  animation-iteration-count: 1;
-  animation-duration: .3s;
-}
-
-@keyframes zoomIn {
-  0% {  opacity: 0.8; transform: scale3d(1.1, 1.1, 1.1); }
-  20% { transform: scale3d(1,1,1); }
-  70% {  transform: scale3d(1.1,1.1,1.1); }
-  100% { opacity: 1 }
-}
 
 .flask {
   display: block;
@@ -184,4 +167,3 @@ export default {
 
 }
 </style>
-
