@@ -1,12 +1,12 @@
 <template>
-  <div class="flask fadeIn" :style="flaskStyle" ref="flask">
+  <div class="flask" :style="flaskStyle" ref="flask">
 
     <!-- decrement btn -->
     <button-item
       v-if="buttonsVisible"
       class="flask__btn flask__btn--left"
       icon="pi pi-arrow-down"
-      @click="handleDecrement(); $emit('decrement')"
+      @click="handleDecrement()"
     />
     <div
         :class="fillClasses"
@@ -20,7 +20,7 @@
       class="flask__btn flask__btn--right"
       icon="pi pi-arrow-up"
       :movement="-0.5"
-      @click="handleIncrement(); $emit('increment')"
+      @click="handleIncrement()"
     />
   </div>
 </template>
@@ -64,8 +64,7 @@ export default {
     fillClasses () {
       return [
         'flask__fill',
-        (this.variant) && `flask__fill--${this.variant}`,
-        this.animationClass
+        (this.variant) && `flask__fill--${this.variant}`
       ]
     },
 
@@ -80,18 +79,18 @@ export default {
     }
   },
   methods: {
-    addClass () {
-      this.$refs.flask.classList.add('zoomIn');
+    addAnimationClass() {
+      this.$refs.flask.classList.add('animate__animated', 'animate__shakeY');
       setTimeout(() => {
-        this.$refs.flask.classList.remove('zoomIn');
-      }, 300);
+        this.$refs.flask.classList.remove('animate__animated', 'animate__shakeY');
+      }, 1000); // Czas trwania animacji shakeY to 1s
     },
     handleIncrement () {
-      this.addClass();
+      this.addAnimationClass();
       this.$emit('increment');
     },
     handleDecrement () {
-      this.addClass();
+      this.addAnimationClass();
       this.$emit('decrement');
     }
   },
@@ -185,3 +184,4 @@ export default {
 
 }
 </style>
+
