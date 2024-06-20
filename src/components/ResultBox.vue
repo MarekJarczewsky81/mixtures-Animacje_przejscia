@@ -38,19 +38,21 @@
     </router-link>
 
     <!-- modal -->
-    <modal-item
-      :visible="modalVisible"
-      @cancel="hideModal">
-      <template v-slot:header>
-        About the app
-      </template>
-      <template v-slot:body>
-        Mix three colors to create the perfect one!
-      </template>
-      <template v-slot:footer>
-        <button-item icon="pi-thumbs-up" />
-      </template>
-    </modal-item>
+    <fade-animation>
+      <modal-item
+        :visible="modalVisible"
+        @cancel="hideModal">
+        <template v-slot:header>
+          About the app
+        </template>
+        <template v-slot:body>
+          Mix three colors to create the perfect one!
+        </template>
+        <template v-slot:footer>
+          <button-item icon="pi-thumbs-up" />
+        </template>
+      </modal-item>
+    </fade-animation>
   </div>
 </template>
 
@@ -59,6 +61,7 @@ import FlaskItem from './shared/FlaskItem.vue'
 import ButtonItem from './shared/ButtonItem.vue'
 import ModalItem from './shared/ModalItem.vue'
 import modalMixin from '../mixins/modalMixin.js'
+import FadeAnimation from './shared/FadeAnimation.vue'
 
 export default {
   name: 'ResultsBox',
@@ -83,7 +86,8 @@ export default {
     FlaskItem,
     ButtonItem,
     ModalItem,
-    modalMixin
+    modalMixin,
+    FadeAnimation
   }
 }
 </script>
@@ -93,6 +97,18 @@ export default {
   width: fit-content;
   font-size: 20rem;
   margin: 0 auto;
+}
+
+.slide-fade-enter-active {
+  transition: opacity .3s;
+}
+
+.slide-fade-enter-from {
+  opacity: 0;
+}
+
+.slide-fade-enter-to {
+  opacity: 1;
 }
 
 </style>

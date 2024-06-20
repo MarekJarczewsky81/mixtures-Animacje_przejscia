@@ -1,16 +1,17 @@
 <template>
-  <div class="flask" :style="flaskStyle">
+  <div class="flask fadeIn" :style="flaskStyle" ref="flask">
 
     <!-- decrement btn -->
     <button-item
       v-if="buttonsVisible"
       class="flask__btn flask__btn--left"
       icon="pi pi-arrow-down"
-      @click="$emit('decrement')"
+      @click="handleDecrement(); $emit('decrement')"
     />
     <div
         :class="fillClasses"
         :style="fillStyle"
+        ref="flaskFill"
     />
 
     <!-- increment btn -->
@@ -19,7 +20,7 @@
       class="flask__btn flask__btn--right"
       icon="pi pi-arrow-up"
       :movement="-0.5"
-      @click="$emit('increment')"
+      @click="handleIncrement(); $emit('increment')"
     />
   </div>
 </template>
@@ -63,7 +64,8 @@ export default {
     fillClasses () {
       return [
         'flask__fill',
-        (this.variant) && `flask__fill--${this.variant}`
+        (this.variant) && `flask__fill--${this.variant}`,
+        this.animationClass
       ]
     },
 
@@ -77,11 +79,51 @@ export default {
       return style
     }
   },
+  methods: {
+    addClass () {
+      this.$refs.flask.classList.add('zoomIn');
+      setTimeout(() => {
+        this.$refs.flask.classList.remove('zoomIn');
+      }, 300);
+    },
+    handleIncrement () {
+      this.addClass();
+      this.$emit('increment');
+    },
+    handleDecrement () {
+      this.addClass();
+      this.$emit('decrement');
+    }
+  },
   components: { ButtonItem }
 }
 </script>
 
 <style lang="scss" scoped>
+.fadeIn {
+  animation-name: fadeIn;
+  animation-iteration-count: 1;
+  animation-duration: .3s;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1 }
+}
+
+.zoomIn {
+  animation-name: zoomIn;
+  animation-iteration-count: 1;
+  animation-duration: .3s;
+}
+
+@keyframes zoomIn {
+  0% {  opacity: 0.8; transform: scale3d(1.1, 1.1, 1.1); }
+  20% { transform: scale3d(1,1,1); }
+  70% {  transform: scale3d(1.1,1.1,1.1); }
+  100% { opacity: 1 }
+}
+
 .flask {
   display: block;
   border: 10px solid #ddd;
