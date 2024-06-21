@@ -1,19 +1,22 @@
 <template>
   <div class="page">
-
-      <!-- color mixin -->
-      <color-mixin />
-
+    <MessageAnimation />
+    <!-- color mixin -->
+    <ColorMixin />
   </div>
 </template>
 
 <script>
-import ColorMixin from '@/components/ColorMixin'
+import ColorMixin from '@/components/ColorMixin';
+import MessageAnimation from '@/components/shared/MessageAnimation.vue';
 
 export default {
   name: 'MixinPage',
   components: {
-    ColorMixin
+    ColorMixin,
+    MessageAnimation
   }
-}
+};
 </script>
+
+

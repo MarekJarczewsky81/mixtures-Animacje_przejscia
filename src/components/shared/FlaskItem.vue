@@ -3,7 +3,7 @@
     class="flask"
     :class="{ 'animate__animated animate__shakeY': isAnimated }"
     :style="flaskStyle"
-    @animationend="isAnimated = false">
+    @animationEnd="isAnimated = false">
 
     <!-- decrement btn -->
     <button-item
