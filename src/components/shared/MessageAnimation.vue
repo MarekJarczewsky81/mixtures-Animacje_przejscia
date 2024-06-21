@@ -40,8 +40,7 @@ export default {
 };
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
 .custom-alert {
   display: flex;
   align-items: center;
@@ -63,6 +62,4 @@ export default {
   font-size: 1.5rem;
   cursor: pointer;
 }
-
-
 </style>
